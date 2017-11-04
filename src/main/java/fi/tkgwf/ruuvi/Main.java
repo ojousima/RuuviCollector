@@ -8,6 +8,7 @@ import fi.tkgwf.ruuvi.handler.BeaconHandler;
 import fi.tkgwf.ruuvi.handler.impl.DataFormatV2;
 import fi.tkgwf.ruuvi.handler.impl.DataFormatV3;
 import fi.tkgwf.ruuvi.handler.impl.DataFormatV4;
+import fi.tkgwf.ruuvi.handler.impl.DataFormatV5;
 import fi.tkgwf.ruuvi.utils.RuuviUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Main {
         beaconHandlers.add(new DataFormatV2());
         beaconHandlers.add(new DataFormatV3());
         beaconHandlers.add(new DataFormatV4());
+        beaconHandlers.add(new DataFormatV5());
     }
 
     public static void main(String[] args) {
@@ -39,7 +41,7 @@ public class Main {
     }
 
     private BufferedReader startHciListeners() throws IOException {
-        Process hcitool = new ProcessBuilder("hcitool", "lescan", "--duplicates").start();
+        Process hcitool = new ProcessBuilder("hcitool", "lescan", "--duplicates" "--passive").start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> hcitool.destroyForcibly()));
         Process hcidump = new ProcessBuilder("hcidump", "--raw").start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> hcidump.destroyForcibly()));
