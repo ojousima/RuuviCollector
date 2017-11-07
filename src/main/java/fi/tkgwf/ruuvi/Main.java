@@ -41,7 +41,7 @@ public class Main {
     }
 
     private BufferedReader startHciListeners() throws IOException {
-        Process hcitool = new ProcessBuilder("hcitool", "lescan", "--duplicates" "--passive").start();
+        Process hcitool = new ProcessBuilder("hcitool", "lescan", "--duplicates", "--passive").start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> hcitool.destroyForcibly()));
         Process hcidump = new ProcessBuilder("hcidump", "--raw").start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> hcidump.destroyForcibly()));
